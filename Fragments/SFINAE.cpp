@@ -16,7 +16,7 @@ std::string to_string(const A&)
 // Type B with a serialize method.
 struct B
 {
-	std::string serialize() const
+	virtual std::string serialize() const
 	{
 		return "I am a B!";
 	}
@@ -51,6 +51,14 @@ struct E
 	};
 
 	Functor serialize;
+};
+
+struct F : B
+{
+	std::string serialize() const
+	{
+		return "I am a F!";
+	}
 };
 
 template <class T> struct hasSerialize
@@ -88,11 +96,17 @@ void SFINAE()
 	C c;
 	D d;
 	E e;
+	F f;
+	B* fb = new B();
 
 	printf("%s\n", serialize(a).c_str());
 	printf("%s\n", serialize(b).c_str());
 	printf("%s\n", serialize(c).c_str());
 	printf("%s\n", serialize(d).c_str());
 	printf("%s\n", serialize(e).c_str());
+	printf("%s\n", serialize(f).c_str());
+	printf("%s\n", serialize(*fb).c_str());
+
+	delete fb;
 
 }
