@@ -1,7 +1,7 @@
 
-extern void MainInterweaveWithAlignment();
+extern void SFINAE();
 
 void main()
 {
-	MainInterweaveWithAlignment();
+	SFINAE();
 }
